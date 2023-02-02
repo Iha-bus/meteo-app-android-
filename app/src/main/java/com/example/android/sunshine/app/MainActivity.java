@@ -6,9 +6,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -16,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -50,14 +55,29 @@ public class MainActivity extends AppCompatActivity {
      * A placeholder fragment containing a simple view.
      */
     public static class PlaceholderFragment extends Fragment {
-
+        private ArrayList<String> forecastList = new ArrayList<>();
+        private ArrayAdapter<String> adapter;
+        private ListView listView;
         public PlaceholderFragment() {
         }
 
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+            forecastList.add("Mon 6/23 - Sunny - 31");
+            forecastList.add("Tue 6/24 - Foggy - 21");
+            forecastList.add( "Mon 6/23 - Sunny - 31/17");
+            forecastList.add( "Tue 6/24 - Foggy - 21/8");
+            forecastList.add( "Wed 6/25 - Cloudy - 22/17");
+            forecastList.add( "Thurs 6/26 - Rainy - 18/11");
+            forecastList.add( "Fri 6/27 -Foggy - 21/10");
+            forecastList.add( "Sat 6/28 -TRAPPED IN WEATHERSTATION- 23/18");
+            forecastList.add( "Sun 6/29 - Sunny - 20/7");
+
+            adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, forecastList);
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+            listView=  rootView.findViewById(R.id.listview_forecast);
+             listView.setAdapter(adapter);
             return rootView;
         }
     }
